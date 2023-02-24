@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+{% if form.errors %}
+    <div class="alert alert-danger" role="alert">  
+        {{form.errors}}
+    </div> 
+{% endif %}
+<h1>Neues Zertifikat anlegen</h1>
+<form action="#" method="post" novalidate class="row g-3" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    <div class="col-12">
+        <label for="Form-Eingabe Name" class="form-label">{{ form.nameinput.label }}</label>
+        {{form.nameinput(class="form-control")}}
+    </div>    
+    <hr />
+    <h3>Schlüsseleigenschaften</h3>
+    <div class="col-12">
+        <label for="Form-Eingabe Keylaenge" class="form-label">{{ form.keylengh.label }}</label>
+        {{form.keylengh(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe Schluesseltyp" class="form-label">{{ form.keytyp.label }}</label>
+        {{form.keytyp(class="form-control")}}
+    </div>
+    <hr />
+    <h3>Zertifikatseigenschaften</h3>
+    
+    <div class="col-12">
+        <label for="Form-Eingabe C" class="form-label">{{ form.C.label }}</label>
+        {{form.C(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe ST" class="form-label">{{ form.ST.label }}</label>
+        {{form.ST(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe L" class="form-label">{{ form.L.label }}</label>
+        {{form.L(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe O" class="form-label">{{ form.O.label }}</label>
+        {{form.O(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe OU" class="form-label">{{ form.OU.label }}</label>
+        {{form.OU(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe CN" class="form-label">{{ form.CN.label }}</label>
+        {{form.CN(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe E-Mail" class="form-label">{{ form.emailAdress.label }}</label>
+        {{form.emailAdress(class="form-control")}}
+    </div>
+    <div class="col-12">
+        <label for="Form-Eingabe DNS" class="form-label">{{ form.DNS.label }}</label>
+        {{form.DNS(class="form-control")}}
+    </div>
+    <hr />
+    <div class="col-12">
+        <label for="Form-Eingabe Submit class="form-label">Das Erstellen eines Zertifikatsrequests kann ein wenig Zeit in Anspruch nehmen.</label><br />
+        {{form.submit(class="btn btn-success") }}
+    </div>
+</form>
+{% endblock %}

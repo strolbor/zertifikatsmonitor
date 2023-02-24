@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    {% if Aler %}
+        <h3>Zertifikatsliste, die bald ablaufen werden</h3>
+    {% else %}
+        <h3>Zertifikatsliste</h3>
+    {% endif %}
+    {% if serverlist | count > 0%}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Speicherort</th><th>Zertifikatseigenschaften</th><th>Ablaufdatum</th>
+                    <th >Private Key</th><th>Zertifikatsrequest</th><th>Konfig</th>
+                    <th >p7b-Zertifikat</th>
+                    <th>pem-Zertifikat</th>
+                    <th></th>
+                </tr>
+            </thead>   
+            <tbody>
+            {% for entry in serverlist %}
+                {% if loop.index % 2 == 0 %}
+                    <tr class="table-secondary">
+                {% else %}
+                    <tr>
+                {% endif %}
+            
+                <td>{{entry.name}}</td> 
+                <td>
+                <p>
+                    <a class="redlink"  data-bs-toggle="collapse" href="#collapse-{{loop.index}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="bi bi-info-circle"></i> {{entry.CN}} 
+                    </a>
+                </p>
+                <div class="collapse" id="collapse-{{loop.index}}">
+                    <div class="card card-body">
+                        <b>CN:</b> {{entry.CN}}
+                        <b>DNS:</b>
+                        <ul>
+                        
+                            {% for DNSentry in entry.DNS.split(",") %}
+                                <li>{{DNSentry}}</li>
+                            {% endfor %}
+                        </ul>
+                        
+                    </div>
+                </td>
+                <td>{{entry.expiredate}}</td>
+                
+                <td>
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='private.key')}}"><i class="bi bi-arrow-right"></i> Anzeigen</a><br />
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='private.key',mode=1)}}"><i class="bi bi-download"></i> Download</a>
+                </td>
+                <td>
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='csr.req')}}"><i class="bi bi-arrow-right"></i> Anzeigen</a><br />
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='csr.req',mode=1)}}"><i class="bi bi-download"></i> Download</a><br />
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='verify.txt')}}"><i class="bi bi-arrow-right"></i> openSSL verify</a>
+                </td>
+                <td>
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='csr.ext')}}"><i class="bi bi-arrow-right"></i> Anzeigen</a><br />
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='csr.ext',mode=1)}}"> <i class="bi bi-download"></i> Download</a>
+                </td>
+                {% if entry.expiredate %}
+                <td>
+                    
+                    <a  class="redlink" href="{{url_for('downctl',ordner=entry.name,filename='cert.p7b',mode=1)}}"><i class="bi bi-download"></i> Download</a>
+                </td>
+                <td>
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='cert.pem')}}"><i class="bi bi-arrow-right"></i> Anzeigen</a><br />
+                    <a class="redlink"  href="{{url_for('downctl',ordner=entry.name,filename='cert.pem',mode=1)}}"><i class="bi bi-download"></i> Download</a>
+                </td>
+                {% else %}
+                    <td><a  class="redlink" href="{{url_for('pbupload',ort=entry.name)}}">Upload</a></td><td></td>
+                {% endif %}
+                    <td><a class="redlink" href="{{url_for('ctldelete',speicherort=entry.name,mode=mode)}}"><i class="bi bi-trash"></i></a></th>
+            </tr>
+
+            {% endfor %}
+        </tbody> 
+        </table>
+    {% else %}
+
+    {% endif %}
+
+{% endblock %}

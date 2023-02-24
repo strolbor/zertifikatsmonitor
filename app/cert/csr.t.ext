@@ -1,0 +1,22 @@
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+ 
+[req_distinguished_name]
+C = {{ C }}
+ST = {{ ST }}
+L = {{ L }}
+O = {{ O }}
+OU = {{ OU }}
+CN = {{ CN }}
+emailAddress={{ email }}
+ 
+[v3_req]
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+ 
+[alt_names]
+{% for entry in DNSlist%}DNS.{{loop.index}} = {{entry}}
+{% endfor %}

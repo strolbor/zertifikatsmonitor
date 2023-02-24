@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block app_content %}
+<table class="table">
+    <thead>
+        <tr><th>Name</th><th></th></tr>
+    </thead>
+    <tbody>
+        {% for entry in array %}
+        <tr>
+            <td>
+                {{entry.username}}
+            </td>
+            <td>
+                {% if entry.id != 1%}
+                <a href="{{url_for('deluser',id=entry.id)}}"><i class="bi bi-trash"></i></a>
+                {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

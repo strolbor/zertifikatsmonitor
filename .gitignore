@@ -1,0 +1,16 @@
+*.pyc
+app/__pycache__/
+instance/
+lib/
+*.exe
+magma_impl/
+*.dll
+*.cnf
+GOST Engine.txt
+email.txt
+venv/
+doc/
+ssl/
+*.txt
+!requirements.txt
+migrations/
