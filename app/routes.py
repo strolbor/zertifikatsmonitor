@@ -2,7 +2,7 @@ from flask.helpers import  url_for
 from flask import redirect, render_template,request, flash
 import os
 
-from app import opensslcmd, helper, app, forms,helper,dbmodels,db
+from app import opensslcmd, helper, app, forms,helper,dbmodels
 
 def checkdb():
     path = os.path.join(app.config['UPLOAD_FOLDER'],"app.db")
