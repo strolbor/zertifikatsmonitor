@@ -1,9 +1,6 @@
 from flask import Flask
 from flask_apscheduler import APScheduler
 from flask_mail import Mail
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_login import LoginManager
 
 import os
 # Flask APP
@@ -22,19 +19,18 @@ class Config(object):
 
 
 # Mail Server settings
-app.config['MAIL_SERVER']       = 'smtp.mgmt.dpaor.org'
+app.config['MAIL_SERVER']       = ''
 app.config['MAIL_PORT']         = 25
 app.config['MAIL_USE_TLS']      = False
 app.config['MAIL_USE_SSL']      = False
 
 # E-Mail Sender
-app.config['MAIL_SENDER']       = "dataportzlinuxbasisbetrieb@dataport.de"
+app.config['MAIL_SENDER']       = ""
 # E-Mail Empfänger
-app.config['MAIL_RECIPIENTS']   = ["dataportzlinuxbasisbetrieb@dataport.de"]
+app.config['MAIL_RECIPIENTS']   = [""]
 
 mail = Mail(app)
 scheduler = APScheduler()
-login = LoginManager(app)
 
 # Schedular starten
 scheduler.init_app(app)
@@ -43,9 +39,6 @@ scheduler.start()
 
 #Konfig
 app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
 # Flask Settings
 app.config["SECRET_KEY"]        = "b2d0d27ef077658e274ef787c1002a814ab23b7485c734bb8b9d2fcf27000c1c"
 
