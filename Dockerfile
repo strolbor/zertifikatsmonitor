@@ -1,5 +1,5 @@
 # Python version holen
-FROM python:alpine3.15
+FROM ubuntu:latest
 
 # Enviroment setzen
 WORKDIR /etc/certmon
@@ -9,13 +9,13 @@ WORKDIR /etc/certmon
 #Requirements kopieren
 COPY requirements.txt requirements.txt
 # benötige Programme installieren
-RUN apk add --update openssl && \
-    apk add --update gcc g++ python3-dev musl-dev && \
+RUN apt update && \
+    apt install -y openssl && \
+    apt install -y gcc g++ python3-dev musl-dev python3 python3-pip && \
 
     pip3 install --no-cache-dir --upgrade pip && \
     pip3 install --no-cache-dir -r requirements.txt && \
-    apk del gcc g++ python3-dev musl-dev && \
-    rm -rf /var/cache/apk/*  && \
+    apt purge -y gcc g++ python3-dev musl-dev && \
     rm -rf requirements.txt
 
 # Zertifikatsmonitor installieren
