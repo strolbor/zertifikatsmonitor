@@ -86,7 +86,7 @@ def verifiyREQ(path):
     status = os.system(cmd)
     return status
 
-def convertCERT(path):
+def convertCERT(path,filename):
     """Hiermit konvertieren, wir das p7b-Zertifkat in ein pem-Format"""
     certpem = app.config['CRTPEM']
     p7bfile = app.config['CRTP7B']
@@ -98,8 +98,12 @@ def convertCERT(path):
     #kaputteer CMD
     #cmd = f"openssl pkcs7 -in \"{os.path.join(path,p7bfile)}\" -print_certs -out \"{os.path.join(path,certpem)}\""
     #neuer CMD aus Confluence
-    cmd = f"openssl pkcs7 -inform DER -outform PEM -in \"{os.path.join(path,p7bfile)}\" -print_certs > \"{os.path.join(path,certpem)}\""
-    print(cmd)
+    cmd="echo hi"
+    print("[OPENSSL] ",path)
+    if filename.split(".")[1] == "p7b":
+        cmd = f"openssl pkcs7 -inform DER -outform PEM -in \"{os.path.join(path,p7bfile)}\" -print_certs > \"{os.path.join(path,certpem)}\""
+        print(cmd)
+    
     statusconvertierung = os.system(cmd)
 
     gettingData1(path,0)

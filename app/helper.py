@@ -52,12 +52,14 @@ def save(feldname, rfiles ,path,dateiname, allowsFiles) -> str:
     if file:
         """ Datei ist vorhanden"""
         file = request.files[feldname]
-        filename = secure_filename(dateiname)#"cert.p7b")# file.filename)
+        print(file.filename)
+        filename = secure_filename(file.filename)
         fileext = secure_filename(file.filename).split(".")
         if fileext[1] not in allowsFiles:
             return "not-allowed"
         paths = os.path.join(path,filename)
         file.save(paths)
+        print(paths)
         return paths
 
 def writeLine(filename,content : str):

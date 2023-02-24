@@ -44,7 +44,7 @@ app.config["SECRET_KEY"]        = "b2d0d27ef077658e274ef787c1002a814ab23b7485c73
 # Ordnername
 app.config['CERT']              = "certificates"
 # Welche Daten dürfen als Zertifikatstyp hochgeladen werden
-app.config['UPLOAD_EXTENSIONS'] = ['p7b']
+app.config['UPLOAD_EXTENSIONS'] = ['p7b','pem']
 
 # Extfile Upload Format Endungen
 app.config['EXTUPLOAD_EXT']     = ['conf','ext']

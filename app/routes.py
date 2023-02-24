@@ -78,7 +78,7 @@ def pbupload():
             flash("Fehler: Es wurde keine Datei hochgeladen.")
         else:
             flash("Datei erfolgreich gespeichert!")
-            status = opensslcmd.convertCERT(path2)
+            status = opensslcmd.convertCERT(path2,request.files["certupload"].filename)
             pathfile = os.path.join(path2,app.config['ISINFO'])
             if os.path.exists(pathfile):
                 os.remove(pathfile)
@@ -132,6 +132,7 @@ def csrimport():
                 opensslcmd.gettingData1(path2,1)
 
             # CRT in p7b upload
+            print(request.files["certupload"])
             file3 = helper.save("certupload",request.files,path2,app.config['CRTP7B'],app.config['UPLOAD_EXTENSIONS'])
             print("file3",file3)
             if file3 == "A" or file3 == "B":
@@ -141,7 +142,7 @@ def csrimport():
                 if file3 == "not-allowed":
                     flash("Fehler: Es wurde kein Zertifikat im .p7b Dateiformat ausgewählt.")
                 else:
-                    status = opensslcmd.convertCERT(path2)
+                    status = opensslcmd.convertCERT(path2,request.files["certupload"].filename)
                     if status != 0:
                         flash("Fehler: Fehler in der Konvertierung. Bitte erneut versuchen!")
                     else:
