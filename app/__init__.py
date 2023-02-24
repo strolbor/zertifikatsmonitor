@@ -12,9 +12,6 @@ app.config['BASE_FOLDER']       = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
     SCHEDULER_API_ENABLED = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(app.config['UPLOAD_FOLDER'], 'app.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 

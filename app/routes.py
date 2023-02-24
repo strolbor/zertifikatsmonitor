@@ -2,31 +2,15 @@ from flask.helpers import  url_for
 from flask import redirect, render_template,request, flash
 import os
 
-from app import opensslcmd, helper, app, forms,helper,dbmodels
-
-def checkdb():
-    path = os.path.join(app.config['UPLOAD_FOLDER'],"app.db")
-    if not os.path.exists(path):
-        array = []
-        array.append("python3 -m flask db init")
-        array.append("python3 -m flask db migrate -m 'init'")
-        array.append("python3 -m flask db upgrade")
-        for entry in array:
-            os.system(entry)
-        u1 = dbmodels.User(username="admin")
-        u1.set_password("12345")
-        db.session.add(u1)
-        db.session.commit()
-        flash("Neue Installation erkannt.")
-
+from app import opensslcmd, helper, app, forms,helper
 
 @app.route('/index',methods=['GET','POST'])
 @app.route('/',methods=['GET','POST'])
 def listserver():
     """Alle Zertifikate auflisten. """
-    checkdb()
     mode =  request.args.get('mode', 0, type=int)
     path = os.path.join(app.config['UPLOAD_FOLDER'],app.config['CERT'])
+    print(path)
     array = []
     if not os.path.exists(path):
         # Es wurden keine Server gefunden.
